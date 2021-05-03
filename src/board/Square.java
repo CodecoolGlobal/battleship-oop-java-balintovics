@@ -21,6 +21,14 @@ public class Square {
         this.isHit = false;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public void setShip() {
         isShip = true;
     }
