@@ -10,9 +10,15 @@ public class Ship {
         Cruiser,
         Battleship,
         Submarine,
-        Destroyer
+        Destroyer;
+
+        public int getShipLength() {
+            return this.equals(Carrier) ? 5 : this.equals(Cruiser) ? 4 :
+                    this.equals(Battleship) ? 3 : this.equals(Submarine) ? 2 : 1;
+        }
+
+
+        private List<Square> squares;
+
     }
-
-    private List<Square> squares;
-
 }

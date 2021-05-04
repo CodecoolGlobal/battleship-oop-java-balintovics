@@ -24,4 +24,5 @@ public class Board {
         return positionX < this.BOARD_SIZE && positionY < this.BOARD_SIZE && // Is it on board?
         this.ocean[positionX][positionY].toString().equals("EMPTY"); // DO NOT put it on other ships
     }
+
 }

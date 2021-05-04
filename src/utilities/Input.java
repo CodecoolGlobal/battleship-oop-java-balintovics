@@ -4,9 +4,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Input {
-    public Scanner input = new Scanner(System.in);
 
-    public String getString() {
+    private final Scanner input = new Scanner(System.in);;
+
+    public String getString(String message) {
+        System.out.println(message);
         return input.nextLine();
     }
 
@@ -21,6 +23,7 @@ public class Input {
 
     public int[] convertPlacement(String coordinate) {
         try {
+            while (!coordinateCheck(coordinate)) {coordinate = getString("Invalid input, try again! ");}
             char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
             String letter = coordinate.substring(0, 1);
             int row = new String(alphabet).indexOf(letter);
@@ -38,5 +41,10 @@ public class Input {
             return coordinate.matches("\\D\\d\\d");
         }
         return false;
+    }
+
+    public void promptEnterKey(){
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 }

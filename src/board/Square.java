@@ -19,6 +19,7 @@ public class Square {
         this.y = y;
         this.isShip = false;
         this.isHit = false;
+        this.isHidden = true;
     }
 
     public int getX() {
@@ -30,15 +31,15 @@ public class Square {
     }
 
     public void setShip() {
-        isShip = true;
+        this.isShip = true;
     }
 
     public void setHit() {
-        isHit = true;
+        this.isHit = true;
     }
 
-    public void setHidden() {
-        isHidden = true;
+    public void setHidden(boolean state) {
+        this.isHidden = state;
     }
 
     public boolean isShip() {
@@ -54,9 +55,10 @@ public class Square {
     }
 
     public String toString() {
-        if (isShip && isHit) return SquareStatus.HIT.getCharacter();
-        else if (isShip) return SquareStatus.SHIP.getCharacter();
-        else if (isHit) return SquareStatus.MISS.getCharacter();
+        if (isHidden) return SquareStatus.EMPTY.getCharacter();
+        if (isShip() && isHit()) return SquareStatus.HIT.getCharacter();
+        else if (isShip()) return SquareStatus.SHIP.getCharacter();
+        else if (isHit()) return SquareStatus.MISS.getCharacter();
         else return SquareStatus.EMPTY.getCharacter();
     }
 }
