@@ -12,23 +12,24 @@ public class Square {
         };
     }
     private boolean isShip, isHit, isHidden;
-    private final int x, y;
+//    private final int x, y; // *
 
-    public Square(int x, int y) {
-        this.x = x;
-        this.y = y;
+//    public Square(int x, int y) { // *  do not delete * comments yet
+    public Square() {
+//        this.x = x; // *
+//        this.y = y; // *
         this.isShip = false;
         this.isHit = false;
         this.isHidden = true;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
+//    public int getX() { // *
+//        return x;
+//    }
+//
+//    public int getY() { // *
+//        return y;
+//    }
 
     public void setShip() {
         this.isShip = true;
