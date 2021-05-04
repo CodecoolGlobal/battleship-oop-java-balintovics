@@ -3,26 +3,25 @@ package board;
 import java.util.Arrays;
 
 public class Board {
-    private final Square[][] ocean;
-    private final int BOARD_SIZE = 10;
+
+    public final int BOARD_SIZE = 10;
+    public final Square[][] ocean = new Square[BOARD_SIZE][BOARD_SIZE];
 
     public Board() {
-        this.ocean = new Square[BOARD_SIZE][BOARD_SIZE];
         for (int i=0;i<BOARD_SIZE;i++) {
             for (int j=0;j<BOARD_SIZE;j++) {
-                ocean[i][j] = new Square(i, j);
+                this.ocean[i][j] = new Square(i, j);
             }
         }
+        this.ocean[0][1].setShip();
+        this.ocean[0][0].setShip();
+        this.ocean[0][1].setHit();
     }
 
     public boolean isPlacementOk(int[] placement) {
         int positionX = placement[0];
         int positionY = placement[1];
         return positionX < this.BOARD_SIZE && positionY < this.BOARD_SIZE && // Is it on board?
-        this.ocean[positionX][positionY].getStatus().equals("EMPTY"); // DO NOT put it on other ships
-    }
-
-    public String print() {
-        return Arrays.deepToString(this.ocean);
+        this.ocean[positionX][positionY].toString().equals("EMPTY"); // DO NOT put it on other ships
     }
 }

@@ -1,14 +1,16 @@
 import board.Board;
-import board.Square;
+import utilities.*;
 
 import java.util.Arrays;
 
 public class Battleship {
     public static void main(String[] args) {
-        Square cica = new Square(1, 1);
-        System.out.println(cica.getStatus());
-        System.out.println();
-        Board kutya = new Board();
-        System.out.println(kutya.print());
+        //display menu
+        //    Press anybutton to play
+        Board board1 = new Board();
+        Board board2 = new Board();
+        Display.printSingleBoard(board1);
+//        System.out.println(board1.print());
+//        System.out.println(board2.print());
     }
 }
