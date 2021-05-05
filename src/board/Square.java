@@ -9,27 +9,27 @@ public class Square {
         public String getCharacter() {
             return this.equals(EMPTY) ? "🌊" : this.equals(SHIP) ? "⛵" :
                     this.equals(HIT) ? "🔥" : "💩";
-        };
+        }
     }
     private boolean isShip, isHit, isHidden;
-//    private final int x, y; // *
+    private final int x, y; // *
 
-//    public Square(int x, int y) { // *  do not delete * comments yet
-    public Square() {
-//        this.x = x; // *
-//        this.y = y; // *
+    public Square(int x, int y) { // *  do not delete * comments yet
+//    public Square() {
+        this.x = x; // *
+        this.y = y; // *
         this.isShip = false;
         this.isHit = false;
-        this.isHidden = true;
+        this.isHidden = false;
     }
 
-//    public int getX() { // *
-//        return x;
-//    }
-//
-//    public int getY() { // *
-//        return y;
-//    }
+    public int getX() { // *
+        return x;
+    }
+
+    public int getY() { // *
+        return y;
+    }
 
     public void setShip() {
         this.isShip = true;
@@ -39,7 +39,7 @@ public class Square {
         this.isHit = true;
     }
 
-    public void setHidden(boolean state) {
+    public void setVisibility(boolean state) {
         this.isHidden = state;
     }
 

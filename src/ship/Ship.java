@@ -11,41 +11,37 @@ public class Ship {
         CRUISER,
         BATTLESHIP,
         SUBMARINE,
-        DESTROYER;
-        public int shipLength() {
-            return this.equals(CARRIER) ? 5 : this.equals(CRUISER) ? 4 :
-                    this.equals(BATTLESHIP) ? 3 : this.equals(SUBMARINE) ? 2 : 1;  // 1 = Destroyer
-        }
+        DESTROYER
     }
 
-    private List<Square> squares = new ArrayList<>();
+    private List<Square> squares;
     private boolean isSunk, isHorizontal;
-    private final int x, y, shipLength;
+    private int shipLength;
 
 
-    public Ship(String shipName, int x, int y, boolean isHorizontal) {
-        this.x = x;
-        this.y = y;
+    public Ship(boolean isHorizontal, ArrayList<Square> squares) {
+        this.squares = squares;
         this.isSunk = false;
-        this.shipLength = getShipLength(shipName);
+        this.shipLength = squares.size();
         this.isHorizontal = isHorizontal;
-
-        for(int i=0; i < this.shipLength; i++) {
-            Square temp = new Square();
-            temp.setShip();
-            this.squares.add(temp);
-        }
     }
 
-    private int getShipLength(String shipName) {  // some other way maybe?
-        return switch (shipName) {
-            case "Carrier" -> ShipType.CARRIER.shipLength();
-            case "Cruiser" -> ShipType.CRUISER.shipLength();
-            case "Battleship" -> ShipType.BATTLESHIP.shipLength();
-            case "Submarine" -> ShipType.SUBMARINE.shipLength();
-            default -> ShipType.DESTROYER.shipLength();
+    public Ship() {}
+
+    public void addSquare(Square square) {
+        this.squares.add(square);
+    }
+
+    public String getShipName(int shipLength) {
+        return switch (shipLength) {
+            case 5 -> ShipType.CARRIER.toString();
+            case 4 -> ShipType.CRUISER.toString();
+            case 3 -> ShipType.BATTLESHIP.toString();
+            case 2 -> ShipType.SUBMARINE.toString();
+            default -> ShipType.DESTROYER.toString();
         };
     }
+
 
     public void setSunk() {
         this.isSunk = true;
@@ -67,17 +63,13 @@ public class Ship {
         this.isHorizontal = false;
     }
 
-    public int getShipLength() {
-        return this.shipLength;
-    }
-
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
+//    public int getX() {
+//        return this.x;
+//    }
+//
+//    public int getY() {
+//        return this.y;
+//    }
 
     public List<Square> getShipSquares() {
         return this.squares;

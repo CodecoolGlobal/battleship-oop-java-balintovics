@@ -9,24 +9,31 @@ public class Display {
         System.out.flush();
     }
 
+    public void shout(String message) {
+        System.out.println(message);
+    }
+
     public static void printSingleBoard(Board board) {
+//        board.setBoardVisibility(false);
         StringBuilder sb = new StringBuilder();
-        sb.append("🟩 ".repeat(board.BOARD_SIZE + 3));
+        sb.append("\uD83D\uDFE5 ".repeat(board.BOARD_SIZE + 3));
         sb.append("\n");
         for (int k = 0; k < board.BOARD_SIZE; k++) {
-            if (k == 0) sb.append("🟩 ").append("  ");
+            if (k == 0) sb.append("\uD83D\uDFE5 ").append("  ");
             String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             sb.append(" ").append(Color.PURPLE).append(alphabet.charAt(k)).append(" ").append(Color.RESET);
         }
-        sb.append(" 🟩").append("\n");
+        sb.append(" \uD83D\uDFE5").append("\n");
         for (int i = 0; i < board.BOARD_SIZE; i++) {
             for (int j = 0; j < board.BOARD_SIZE; j++) {
-                if (j == 0) sb.append(Color.PURPLE).append("🟩").append(" ").append(i+1).append("  ").append(Color.RESET);
+
+                if (i == board.BOARD_SIZE - 1 && j == 0) sb.append(Color.PURPLE).append("\uD83D\uDFE5").append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
+                else if (j == 0) sb.append(Color.PURPLE).append("\uD83D\uDFE5").append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
                 sb.append(board.ocean[i][j]).append(" ");
             }
-            sb.append("🟩").append("\n");
+            sb.append("\uD83D\uDFE5").append("\n");
         }
-        sb.append("🟩 ".repeat(board.BOARD_SIZE + 3));
+        sb.append("\uD83D\uDFE5 ".repeat(board.BOARD_SIZE + 3));
         System.out.println(sb);
     }
 
@@ -57,12 +64,10 @@ public class Display {
         System.out.println(sd);
     }
 
-
     public void displayMainMenu() {
-        StringBuilder mainMenu = new StringBuilder("Welcome to Tom Crew's game! ")
-                .append("Press enter to continue!");
-
-        System.out.println(mainMenu.toString());
+        String mainMenu = "Welcome to Tom Crew's game! " +
+                "\nPress enter to continue!";
+        System.out.println(mainMenu);
     }
 
 

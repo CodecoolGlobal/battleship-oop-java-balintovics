@@ -9,15 +9,38 @@ public class Game {
     Board playerBoard1;
     Board playerBoard2;
     Input input = new Input();
+    BoardFactory bf = new BoardFactory();
 
     public void startGame() {
-        Board playerBoard1 = new Board();
-        Board playerBoard2 = new Board();
-        Player player1 = new Player(input.getString("What is your name? "), playerBoard1);
-        Player player2 = new Player(input.getString("What is your name? "), playerBoard2);
-        playerBoard1.ocean[2][5].setShip();
-        Display.printTwoBoards(playerBoard1, playerBoard2);
+        Board board1 = new Board();
+        Player player1 = new Player(input.getString("What is your name? "), board1);
+        Board board2 = new Board();
+        Player player2 = new Player(input.getString("What is your name? "), board2);
+        Display.printSingleBoard(board2);
+        bf.randomPlacement(player1, 5);
+        Display.printSingleBoard(board1);
+        bf.randomPlacement(player1, 4);
+        Display.printSingleBoard(board1);
+        bf.randomPlacement(player1, 3);
+        Display.printSingleBoard(board1);
+        bf.randomPlacement(player1, 2);
+
+        bf.randomPlacement(player2, 5);
+        Display.printSingleBoard(board2);
+        bf.randomPlacement(player2, 4);
+        Display.printSingleBoard(board2);
+        bf.randomPlacement(player2, 3);
+        Display.printSingleBoard(board2);
+        bf.randomPlacement(player2, 2);
+        board1.setBoardVisibility(true);
+        board2.setBoardVisibility(true);
+
+        //        Display.printTwoBoards(board1, board2);
+//        int[] shot = input.convertPlacement(input.getString("Lets sink something!"));
+//        player1.handleShot(shot, player2);
 //        Display.clear();
+        Display.printTwoBoards(board1, board2);
+
 //        System.out.println(ASCII.tomCruise());
     }
 
