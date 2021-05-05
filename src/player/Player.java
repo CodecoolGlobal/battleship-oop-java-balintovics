@@ -11,10 +11,14 @@ public class Player {
     public final String name;
     public ArrayList<Ship> ships = new ArrayList<>();
     public Board board;
+    public int rank;
+    public String symbol;
 
-    public Player(String name, Board board) {
+    public Player(String name, Board board, int rank, String symbol) {
         this.name = name;
         this.board = board;
+        this.rank = rank;
+        this.symbol = symbol;
     }
 
     public void addShip(Ship ship) {
