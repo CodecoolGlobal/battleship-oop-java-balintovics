@@ -7,11 +7,11 @@ import java.util.List;
 
 public class Ship {
     private enum ShipType {
-        CARRIER,
-        CRUISER,
-        BATTLESHIP,
-        SUBMARINE,
-        DESTROYER
+        Carrier,
+        Cruiser,
+        Battleship,
+        Submarine,
+        Destroyer
     }
 
     private List<Square> squares;
@@ -34,14 +34,13 @@ public class Ship {
 
     public String getShipName(int shipLength) {
         return switch (shipLength) {
-            case 5 -> ShipType.CARRIER.toString();
-            case 4 -> ShipType.CRUISER.toString();
-            case 3 -> ShipType.BATTLESHIP.toString();
-            case 2 -> ShipType.SUBMARINE.toString();
-            default -> ShipType.DESTROYER.toString();
+            case 5 -> ShipType.Carrier.toString();
+            case 4 -> ShipType.Cruiser.toString();
+            case 3 -> ShipType.Battleship.toString();
+            case 2 -> ShipType.Submarine.toString();
+            default -> ShipType.Destroyer.toString();
         };
     }
-
 
     public void setSunk() {
         this.isSunk = true;

@@ -13,9 +13,9 @@ public class Game {
 
     public void startGame() {
         Board board1 = new Board();
-        Player player1 = new Player(input.getString("What is your name? "), board1);
+        Player player1 = new Player(input.getString("Player 1, what is your name? "), board1);
         Board board2 = new Board();
-        Player player2 = new Player(input.getString("What is your name? "), board2);
+        Player player2 = new Player(input.getString("Player 2, what is your name? "), board2);
         Display.printSingleBoard(board2);
         bf.manualPlacement(player1, 5);
         Display.printSingleBoard(board1);
@@ -44,10 +44,6 @@ public class Game {
         Display.printTwoBoards(board1, board2);
 
 //        System.out.println(ASCII.tomCruise());
-    }
-
-    public void setShips() {
-        playerBoard1.ocean[2][5].setShip();
     }
 
     public static void runGame() {
