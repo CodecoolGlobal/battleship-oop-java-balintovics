@@ -24,9 +24,9 @@ public class Input {
     public int[] convertPlacement(String coordinate) {
         try {
             while (!coordinateCheck(coordinate)) {coordinate = getString("Invalid input, try again! ").toLowerCase();}
-            char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+            char[] letters = "abcdefghij".toCharArray();
             String letter = coordinate.substring(0, 1).toLowerCase();
-            int row = new String(alphabet).indexOf(letter);
+            int row = new String(letters).indexOf(letter);
             int col = Integer.parseInt(coordinate.substring(1)) - 1;
             return new int[]{col, row};
         } catch (NumberFormatException e) {

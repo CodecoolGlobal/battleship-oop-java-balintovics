@@ -54,13 +54,13 @@ public class BoardFactory {
     public boolean checkEdgeNeighbours(int[] coordinate, String direction, Player player, int shipSize) {
         if (direction.equals("h")) {
             int[] leftNeighbour = new int[]{coordinate[0], coordinate[1] - 1};
-            int[] rightNeighbour = new int[]{coordinate[0], coordinate[1] + shipSize};
+            int[] rightNeighbour = new int[]{coordinate[0], coordinate[1] + shipSize - 1};
             if (leftNeighbour[1] < 0) return player.board.isPlacementOk(rightNeighbour);
             else if (rightNeighbour[1] > player.board.BOARD_SIZE) return player.board.isPlacementOk(leftNeighbour);
             else return player.board.isPlacementOk(leftNeighbour) && player.board.isPlacementOk(rightNeighbour);
         } else {
             int[] topNeighbour = new int[]{coordinate[0] - 1, coordinate[1]};
-            int[] bottomNeighbour = new int[]{coordinate[0] + shipSize, coordinate[1]};
+            int[] bottomNeighbour = new int[]{coordinate[0] + shipSize - 1, coordinate[1]};
             if (topNeighbour[0] < 0) return player.board.isPlacementOk(bottomNeighbour);
             else if (bottomNeighbour[0] > player.board.BOARD_SIZE) return player.board.isPlacementOk(topNeighbour);
             else return player.board.isPlacementOk(topNeighbour) && player.board.isPlacementOk(bottomNeighbour);
@@ -72,14 +72,14 @@ public class BoardFactory {
             int[] topNeighbour = new int[]{coordinate[0] - 1, coordinate[1]};
             int[] bottomNeighbour = new int[]{coordinate[0] + 1, coordinate[1]};
             if (topNeighbour[0] < 0) return player.board.isPlacementOk(bottomNeighbour);
-            else if (bottomNeighbour[0] > player.board.BOARD_SIZE) return player.board.isPlacementOk(topNeighbour);
+            else if (bottomNeighbour[0] >= player.board.BOARD_SIZE) return player.board.isPlacementOk(topNeighbour);
             else return player.board.isPlacementOk(topNeighbour) && player.board.isPlacementOk(bottomNeighbour);
         }
         else {
             int[] leftNeighbour = new int[]{coordinate[0], coordinate[1] - 1};
             int[] rightNeighbour = new int[]{coordinate[0], coordinate[1] + 1};
             if (leftNeighbour[1] < 0) return player.board.isPlacementOk(rightNeighbour);
-            else if (rightNeighbour[1] > player.board.BOARD_SIZE) return player.board.isPlacementOk(leftNeighbour);
+            else if (rightNeighbour[1] >= player.board.BOARD_SIZE) return player.board.isPlacementOk(leftNeighbour);
             else return player.board.isPlacementOk(leftNeighbour) && player.board.isPlacementOk(rightNeighbour);
         }
     }
