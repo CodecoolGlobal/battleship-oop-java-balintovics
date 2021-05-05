@@ -14,26 +14,27 @@ public class Display {
     }
 
     public static void printSingleBoard(Board board) {
+        String border = "\uD83D\uDFE5";
 //        board.setBoardVisibility(false);
         StringBuilder sb = new StringBuilder();
-        sb.append("\uD83D\uDFE5 ".repeat(board.BOARD_SIZE + 3));
+        sb.append((border + " ").repeat(board.BOARD_SIZE + 3));
         sb.append("\n");
         for (int k = 0; k < board.BOARD_SIZE; k++) {
-            if (k == 0) sb.append("\uD83D\uDFE5 ").append("  ");
+            if (k == 0) sb.append(border).append("   ");
             String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             sb.append(" ").append(Color.PURPLE).append(alphabet.charAt(k)).append(" ").append(Color.RESET);
         }
-        sb.append(" \uD83D\uDFE5").append("\n");
+        sb.append(" ").append(border).append("\n");
         for (int i = 0; i < board.BOARD_SIZE; i++) {
             for (int j = 0; j < board.BOARD_SIZE; j++) {
 
-                if (i == board.BOARD_SIZE - 1 && j == 0) sb.append(Color.PURPLE).append("\uD83D\uDFE5").append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
-                else if (j == 0) sb.append(Color.PURPLE).append("\uD83D\uDFE5").append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
+                if (i == board.BOARD_SIZE - 1 && j == 0) sb.append(Color.PURPLE).append(border).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
+                else if (j == 0) sb.append(Color.PURPLE).append(border).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
                 sb.append(board.ocean[i][j]).append(" ");
             }
-            sb.append("\uD83D\uDFE5").append("\n");
+            sb.append(border).append("\n");
         }
-        sb.append("\uD83D\uDFE5 ".repeat(board.BOARD_SIZE + 3));
+        sb.append((border + " ").repeat(board.BOARD_SIZE + 3));
         System.out.println(sb);
     }
 

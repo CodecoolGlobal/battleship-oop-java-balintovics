@@ -33,21 +33,49 @@ public class BoardFactory {
     }
 
     private boolean validPlace(Player player, int shipSize, int[] coordinate, String direction) { //Checks if chosen squares are empty, returns false if not, or out of bounds.
+        int[] targetCoordinate;
         try {
             for (int i=0;i<shipSize;i++) {
                 if (direction.equals("h")) {
-                    if (!player.board.ocean[coordinate[0]][coordinate[1] + i].toString().equals("\uD83C\uDF0A")) {
-                        return false;
-                    }
-                } else if (direction.equals("v")) {
-                    if (!player.board.ocean[coordinate[0] + i][coordinate[1]].toString().equals("\uD83C\uDF0A")) {
-                        return false;
-                    }
-                }}}
+                    targetCoordinate = new int[]{player.board.ocean[coordinate[0]][coordinate[1] + i].getX(),player.board.ocean[coordinate[0]][coordinate[1] + i].getY()};
+                    if (!player.board.isPlacementOk(targetCoordinate) || !checkNeighbours(targetCoordinate, direction, player)) return false;
+                } else {
+                    targetCoordinate = new int[]{player.board.ocean[coordinate[0] + i][coordinate[1]].getX(),player.board.ocean[coordinate[0] + i][coordinate[1]].getY()};
+                    if (!player.board.isPlacementOk(targetCoordinate) || !checkNeighbours(targetCoordinate, direction, player)) return false;}
+                }}
         catch (IndexOutOfBoundsException e) {
             return false;
         }
         return true;
+    }
+
+    public boolean checkEdgeNeighbours(int[] coordinate, String direction, Player player, int shipSize) {
+        if (direction.equals("h")) {
+            int[] leftNeighbour = new int[]{coordinate[0] - 1, coordinate[1]};
+            int[] rightNeighbour = new int[]{coordinate[0] + shipSize, coordinate[1]};
+        } else {
+            int[] topNeighbour = new int[]{coordinate[0] - 1, coordinate[1];
+            int[] bottomNeighbour = new int[]{coordinate[0] + shipSize, coordinate[1]};
+        }
+        return true;
+    }
+
+    public boolean checkNeighbours(int[] coordinate, String direction, Player player) {
+        if (direction.equals("h")) {
+            int[] topNeighbour = new int[]{coordinate[0] - 1, coordinate[1]};
+            int[] bottomNeighbour = new int[]{coordinate[0] + 1, coordinate[1]};
+//            int[] leftNeighbour =
+            if (topNeighbour[0] < 0) return player.board.isPlacementOk(bottomNeighbour);
+            else if (bottomNeighbour[0] > player.board.BOARD_SIZE) return player.board.isPlacementOk(topNeighbour);
+            else return player.board.isPlacementOk(topNeighbour) && player.board.isPlacementOk(bottomNeighbour);
+        }
+        else {
+            int[] leftNeighbour = new int[]{coordinate[0], coordinate[1] - 1};
+            int[] rightNeighbour = new int[]{coordinate[0], coordinate[1] + 1};
+            if (leftNeighbour[1] < 0) return player.board.isPlacementOk(rightNeighbour);
+            else if (rightNeighbour[1] > player.board.BOARD_SIZE) return player.board.isPlacementOk(leftNeighbour);
+            else return player.board.isPlacementOk(leftNeighbour) && player.board.isPlacementOk(rightNeighbour);
+        }
     }
 
     public void setPlacement(int[] coordinate, Player player, String direction, int shipSize) { //Marks chosen Squares as SHIP.

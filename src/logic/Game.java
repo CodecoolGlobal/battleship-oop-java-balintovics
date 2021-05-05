@@ -17,13 +17,14 @@ public class Game {
         Board board2 = new Board();
         Player player2 = new Player(input.getString("What is your name? "), board2);
         Display.printSingleBoard(board2);
-        bf.randomPlacement(player1, 5);
+        bf.manualPlacement(player1, 5);
         Display.printSingleBoard(board1);
-        bf.randomPlacement(player1, 4);
+        bf.manualPlacement(player1, 4);
         Display.printSingleBoard(board1);
-        bf.randomPlacement(player1, 3);
+        bf.manualPlacement(player1, 3);
         Display.printSingleBoard(board1);
-        bf.randomPlacement(player1, 2);
+        bf.manualPlacement(player1, 2);
+        Display.printSingleBoard(board1);
 
         bf.randomPlacement(player2, 5);
         Display.printSingleBoard(board2);
@@ -32,6 +33,7 @@ public class Game {
         bf.randomPlacement(player2, 3);
         Display.printSingleBoard(board2);
         bf.randomPlacement(player2, 2);
+        Display.printSingleBoard(board2);
         board1.setBoardVisibility(true);
         board2.setBoardVisibility(true);
 
