@@ -9,11 +9,13 @@ public class Display {
         System.out.flush();
     }
 
-    public void shout(String message) {
+    public static void shout(String message) {
         System.out.println(message);
     }
 
     public static void printSingleBoard(Board board) {
+//        clear();
+//        System.out.println();
         String border = "🟩";
 //        board.setBoardVisibility(false);
         StringBuilder sb = new StringBuilder();
@@ -40,7 +42,9 @@ public class Display {
 
     }
 
-    public static void printTwoBoards(Board board1, Board board2) {
+    public static void printTwoBoards(Board board1, Board board2, boolean isTest) {
+        if (!isTest) clear();
+        System.out.println();
         String border1 = "🟥";
         String border2 = "🟦";
         StringBuilder sd = new StringBuilder(); //PRINTING TOP & ALPHABET
@@ -71,17 +75,12 @@ public class Display {
         System.out.println(sd);
     }
 
-    public void displayMainMenu() {
-        String mainMenu = """
-                Welcome to Tom Crew's game!\s
-                Press enter to continue!
-                """;
+    public static void displayMainMenu() {
+        String mainMenu = "Welcome to Tom Crew's game!\n" +
+                "Press enter to continue!\n";
+        //todo choosing set method, manual, random
         System.out.println(mainMenu);
+        Input.promptEnterKey();
     }
-
-
-
-//todo game main menu
-//todo
 }
 

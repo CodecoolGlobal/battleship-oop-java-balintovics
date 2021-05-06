@@ -13,7 +13,7 @@ public class BoardFactory {
     Ship ship = new Ship();
 
     public void randomPlacement(Player player, int shipSize) { //Randomizing direction and coordinates until getting a valid placement.
-        display.shout(String.format("Time to place your %s (size: %s)" , ship.getShipName(shipSize), shipSize));
+        display.shout(String.format("Time to place your %s (size: %s), %s" , ship.getShipName(shipSize), shipSize, player.name));
         String[] directions = {"h", "v"}; //Then calling setPlacement() to mark the Squares as ships.
         String direction = directions[new Random().nextInt(2)];
         int[] coordinate = {new Random().nextInt(player.board.ocean.length), new Random().nextInt(player.board.ocean.length)};
@@ -24,9 +24,9 @@ public class BoardFactory {
     }
 
     public void manualPlacement(Player player, int shipSize) {
-        display.shout(String.format("Time to place your %s (size: %s)" , ship.getShipName(shipSize), shipSize));
+        display.shout(String.format("Time to place your %s (size: %s), %s" , ship.getShipName(shipSize), shipSize, player.name));
         String direction = isInputHorizontalOrVertical();
-        String coordinate = input.getString("Choose a coordinate: ");
+        String coordinate = input.getString(String.format("Choose a coordinate, %s: ", player.name));
         int[] placement = input.convertPlacement(coordinate);
         while (!validPlace(player, shipSize, placement, direction)){
             placement = input.convertPlacement(input.getString("Invalid placement. Choose another coordinate: "));
@@ -109,8 +109,11 @@ public class BoardFactory {
             string = input.getString("Horizontal or vertical? ");
             String letter = string.toLowerCase();
             switch (letter) {
-                case "h", "v" -> isOk = true;
-                default -> string = input.getString("Only h or v please!");
+                case "h":
+                case "v":
+                    isOk = true;
+                    break;
+                default: string = input.getString("Only h or v please!");
             }
         } while (!isOk);
         return string;

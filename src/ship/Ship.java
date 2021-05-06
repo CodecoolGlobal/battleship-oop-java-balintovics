@@ -1,6 +1,7 @@
 package ship;
 
 import board.Square;
+import utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Ship {
     private List<Square> squares;
     private boolean isSunk, isHorizontal;
     private int shipLength;
+    Display display;
 
 
     public Ship(boolean isHorizontal, ArrayList<Square> squares) {
@@ -33,16 +35,20 @@ public class Ship {
     }
 
     public String getShipName(int shipLength) {
-        return switch (shipLength) {
-            case 5 -> ShipType.Carrier.toString();
-            case 4 -> ShipType.Cruiser.toString();
-            case 3 -> ShipType.Battleship.toString();
-            case 2 -> ShipType.Submarine.toString();
-            default -> ShipType.Destroyer.toString();
-        };
+        switch (shipLength) {
+            case 5: return ShipType.Carrier.toString();
+            case 4: return ShipType.Cruiser.toString();
+            case 3: return ShipType.Battleship.toString();
+            case 2: return ShipType.Submarine.toString();
+            default: return ShipType.Destroyer.toString();
+        }
     }
 
     public void setSunk() {
+        for (Square square : this.squares) {
+            square.setSunk();
+        }
+        display.shout("You've sunk a ship!");
         this.isSunk = true;
     }
 
@@ -62,14 +68,6 @@ public class Ship {
         this.isHorizontal = false;
     }
 
-//    public int getX() {
-//        return this.x;
-//    }
-//
-//    public int getY() {
-//        return this.y;
-//    }
-
     public List<Square> getShipSquares() {
         return this.squares;
     }
@@ -78,11 +76,11 @@ public class Ship {
         return squares.get(index);
     }
 
-    public void sinkShip() {
+    public void canShipSink() {
         boolean shouldBeSunk = true;
         for (Square nextSquare : squares) {
             if (!nextSquare.isHit()) shouldBeSunk = false;
         }
-        if (shouldBeSunk && !this.isSunk) this.isSunk = true;
+        if (shouldBeSunk && !this.isSunk) setSunk();
     }
 }
