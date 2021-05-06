@@ -11,6 +11,7 @@ public class Player {
     public Board board;
     public int rank;
     public String symbol;
+    public ArrayList<int[]> struck = new ArrayList<>();
 
     public Player(String name, Board board, int rank, String symbol) {
         this.name = name;
@@ -42,6 +43,7 @@ public class Player {
     }
 
     public void handleShot(int[] shot, Player opponent) {
+        this.struck.add(shot);
         opponent.board.ocean[shot[0]][shot[1]].setVisibility(false);
         opponent.board.ocean[shot[0]][shot[1]].setHit();
         for (Ship ship: opponent.ships) {

@@ -12,9 +12,9 @@ public class BoardFactory {
     Display display = new Display();
     Ship ship = new Ship();
 
-    public void randomPlacement(Player player, int shipSize) { //Randomizing direction and coordinates until getting a valid placement.
-        display.shout(String.format("Time to place your %s (size: %s), %s" , ship.getShipName(shipSize), shipSize, player.name));
-        String[] directions = {"h", "v"}; //Then calling setPlacement() to mark the Squares as ships.
+    public void randomPlacement(Player player, int shipSize) {
+        Display.shout(String.format("Time to place your %s (size: %s), %s" , ship.getShipName(shipSize), shipSize, player.name));
+        String[] directions = {"h", "v"};
         String direction = directions[new Random().nextInt(2)];
         int[] coordinate = {new Random().nextInt(player.board.ocean.length), new Random().nextInt(player.board.ocean.length)};
         while (!validPlace(player, shipSize, coordinate, direction)) {
@@ -24,7 +24,7 @@ public class BoardFactory {
     }
 
     public void manualPlacement(Player player, int shipSize) {
-        display.shout(String.format("Time to place your %s (size: %s), %s" , ship.getShipName(shipSize), shipSize, player.name));
+        Display.shout(String.format("Time to place your %s (size: %s), %s" , ship.getShipName(shipSize), shipSize, player.name));
         String direction = isInputHorizontalOrVertical();
         String coordinate = input.getString(String.format("Choose a coordinate, %s: ", player.name));
         int[] placement = input.convertPlacement(coordinate);

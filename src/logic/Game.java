@@ -7,11 +7,9 @@ import player.Player;
 import utilities.Display;
 import utilities.Input;
 
-import java.util.concurrent.TimeUnit;
-
 public class Game {
-    Player player = new Player();
-    Player opponent = new Player();
+    Player player;
+    Player opponent;
     ComputerPlayer ai;
     ComputerPlayer ia;
     Input input = new Input();
@@ -21,8 +19,8 @@ public class Game {
     Board board2 = new Board();
 
     public void mainGame() {
-        player = new Player(input.getString("Player 1, what is your name? "), this.board1, 1, "🟥");
-        opponent = new Player(input.getString("Player 2, what is your name? "), this.board2, 2, "🟦");
+        this.player = new Player(input.getString("Player 1, what is your name? "), board1, 1, "🟥");
+        this.opponent = new Player(input.getString("Player 2, what is your name? "), board2, 2, "🟦");
         choosePlacement();
         setBoardVisibility(board1, board2);
         Display.printTwoBoards(board1, board2, isTest);
@@ -64,7 +62,7 @@ public class Game {
         }
     }
 
-    public void playVsAi(int mode) throws InterruptedException {
+    public void playVsAi(int mode) {
         player = new Player(input.getString("Player 1, what is your name? "), board1, 1, "🟥");
         ai = new ComputerPlayer("AI", board2);
         randomVsAiGameplay();
@@ -75,7 +73,7 @@ public class Game {
         victory(player, ai);
     }
 
-    private void aiVsAi() throws InterruptedException {
+    private void aiVsAi() {
         ai = new ComputerPlayer("AI", board1);
         ia = new ComputerPlayer("IA", board2);
         AivsAiPlacement();
@@ -94,7 +92,7 @@ public class Game {
 
     }
 
-    public void PlayerVsEasyAI() throws InterruptedException {
+    public void PlayerVsEasyAI() {
         while ((player.isAlive() && ai.isAlive())) {
             int[] shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
             while (!player.validShot(shot, ai)) {
@@ -108,7 +106,7 @@ public class Game {
         }
     }
 
-    public void PlayerVsNormalAI() throws InterruptedException {
+    public void PlayerVsNormalAI() {
         while ((player.isAlive() && ai.isAlive())) {
             int[] shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
             while (!player.validShot(shot, ai)) {
@@ -123,9 +121,9 @@ public class Game {
         }
     }
 
-    private void waitingForAI() throws InterruptedException {
+    private void waitingForAI() {
         Display.shout("Calculating...");
-        TimeUnit.SECONDS.sleep(1);
+        Display.wait(1500);
     }
 
     private void victory(Player player, Player opponent) {
@@ -220,15 +218,16 @@ public class Game {
 
     private void shootingPhase(Player player, Player opponent, Board board1, Board board2) {
         int[] shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
-        while (!player.validShot(shot, opponent)) {
-            shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
+//        while (player.struck.contains(shot)) shot = input.convertPlacement(input.getString("You already shot there, dude..."));
+        while (!player.validShot(shot, opponent) || player.struck.contains(shot)) { //TODO: FIX -> struck contains doesn't work
+            shot = input.convertPlacement(input.getString(String.format("%s, dude... That's just not good...", player.name)));
         }
         player.handleShot(shot, opponent);
         Display.printTwoBoards(board1, board2, isTest);
         swapPlayer(this.player, this.opponent);
     }
 
-    public void mainMenu() throws InterruptedException {
+    public void mainMenu() {
         int mode = input.getInt("Welcome! What game mode do you prefer? \n1: Pilot vs Pilot\n2: Top Gun\n3: Terminator II");
         while (mode < 1 || mode > 3) {
             mode = input.getInt("Cheeky, cheeky user... Pick between 1 and 3 ;)\n");
