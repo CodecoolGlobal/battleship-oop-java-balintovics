@@ -69,7 +69,7 @@ public class Game {
         }
     }
 
-    public void PlayerVsAI() {
+    public void PlayerVsEasyAI() {
         while ((player.isAlive() && ai.isAlive())) {
             int[] shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
             while (!player.validShot(shot, ai)) {
@@ -79,8 +79,20 @@ public class Game {
             int[] aiShot = ai.ComputerPlayerEasy();
             ai.handleAIShot(aiShot, player);
             Display.printTwoBoards(player.board, ai.board);
+        }
+    }
 
-//            Display.printTwoBoards(board1, board2);
+    public void PlayerVsNormalAI() {
+        while ((player.isAlive() && ai.isAlive())) {
+            int[] shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
+            while (!player.validShot(shot, ai)) {
+                shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
+            }
+            player.handleShot(shot, ai);
+            ai.determineDirection();
+            int[] aiShot = ai.shootByDirection(player.board);
+            ai.handleAIShot(aiShot, player);
+            Display.printTwoBoards(player.board, ai.board);
         }
     }
 

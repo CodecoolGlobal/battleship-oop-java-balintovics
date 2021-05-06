@@ -16,7 +16,7 @@ public class Battleship {
 //        Input.promptEnterKey();    This is still needed
         Game game = new Game();
         game.placement();
-        game.PlayerVsAI();
+        game.PlayerVsNormalAI();
 //        while (true){
 //
 //        }
