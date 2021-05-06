@@ -1,9 +1,5 @@
-import board.Board;
-import player.Player;
-import utilities.*;
 import logic.Game;
-import player.*;
-import java.util.Arrays;
+import utilities.Display;
 
 
 public class Battleship {

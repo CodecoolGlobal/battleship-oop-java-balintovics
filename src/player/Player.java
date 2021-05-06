@@ -1,10 +1,8 @@
 package player;
 
 import board.Board;
-import board.Square;
 import ship.Ship;
 
-import java.util.List;
 import java.util.ArrayList;
 
 public class Player {

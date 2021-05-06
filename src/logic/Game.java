@@ -1,13 +1,11 @@
 package logic;
 
-import board.*;
+import board.Board;
+import board.BoardFactory;
 import player.ComputerPlayer;
 import player.Player;
-import utilities.*;
 import utilities.Display;
-
-import java.util.List;
-import java.util.Arrays;
+import utilities.Input;
 
 public class Game {
     Player player = new Player();
@@ -111,16 +109,19 @@ public class Game {
     }
 
     private void manualGameplay(Board board1, Board board2) {
-        Display.printSingleBoard(board1);
         for (int j = 0; j < 2; j++) {
             for (int i = 5; i > 1; i--) {
                 if (j == 0) {
+                    Display.clear();
+                    Display.printSingleBoard(board1);
                     bf.manualPlacement(player, i);
                     Display.printSingleBoard(board1);
                     if (i == 2) {
                         Display.clear();
                     }
                 } else {
+                    Display.clear();
+                    Display.printSingleBoard(board2);
                     bf.manualPlacement(opponent, i);
                     Display.printSingleBoard(board2);
                     if (i == 2) {

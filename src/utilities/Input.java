@@ -8,10 +8,8 @@ public class Input {
     private final Scanner input = new Scanner(System.in);
     private Display display;
 
-//    public Input() {}
-
     public String getString(String message) {
-        display.shout(message);
+        Display.shout(message);
         return input.nextLine();
     }
 
@@ -19,7 +17,7 @@ public class Input {
         try {
             return input.nextInt();
         } catch (NumberFormatException | InputMismatchException e) {
-            this.display.shout("Invalid input, please try again.\n");
+            Display.shout("Invalid input, please try again.\n");
             getInt();
         } return -1;
     }
@@ -48,6 +46,7 @@ public class Input {
 
     public static void promptEnterKey(){
         Scanner scanner = new Scanner(System.in);
+        Display.shout("Press enter to continue!");
         scanner.nextLine();
     }
 }

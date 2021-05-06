@@ -99,7 +99,6 @@ public class BoardFactory {
         }
         Ship ship = new Ship(isHorizontal, squares);
         player.addShip(ship);
-
     }
 
     public String isInputHorizontalOrVertical() {

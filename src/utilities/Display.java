@@ -14,10 +14,7 @@ public class Display {
     }
 
     public static void printSingleBoard(Board board) {
-//        clear();
-//        System.out.println();
         String border = "🟩";
-//        board.setBoardVisibility(false);
         StringBuilder sb = new StringBuilder();
         String repeat = (border + " ").repeat(board.BOARD_SIZE + 3);
         sb.append(repeat);
@@ -75,10 +72,22 @@ public class Display {
     }
 
     public static void displayMainMenu() {
-        String mainMenu = "Welcome to Tom Crew's game!\n" +
-                "Press enter to continue!";
+        clear();
+        String mainMenu = "Welcome to Tom Crew's game!";
+        System.out.println(ASCII.tomCruise());
+        Input.promptEnterKey();
+        clear();
         System.out.println(mainMenu);
         Input.promptEnterKey();
+    }
+
+    public static void wait(int ms) {
+        try {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
 
