@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Player {
-    public final String name;
+    public String name;
     public ArrayList<Ship> ships = new ArrayList<>();
     public Board board;
     public int rank;
@@ -19,6 +19,17 @@ public class Player {
         this.board = board;
         this.rank = rank;
         this.symbol = symbol;
+    }
+
+    public Player(String name) {
+        this.name = name;
+    }
+
+    public Player(Board board) {
+        this.board = board;
+    }
+
+    public Player() {
     }
 
     public void addShip(Ship ship) {
@@ -47,5 +58,4 @@ public class Player {
             return false;
         } return true;
     }
-
 }

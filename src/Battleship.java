@@ -13,8 +13,8 @@ public class Battleship {
 
         display.displayMainMenu();
         Game game = new Game();
+        game.placement();
+        game.PlayerVsNormalAI();
         game.mainGame();
-
-
     }
 }

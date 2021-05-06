@@ -39,7 +39,6 @@ public class Display {
         }
         sb.append(repeat);
         System.out.println(sb);
-
     }
 
     public static void printTwoBoards(Board board1, Board board2, boolean isTest) {

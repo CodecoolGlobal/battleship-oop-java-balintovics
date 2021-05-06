@@ -9,7 +9,7 @@ public class Square {
         SUNK;
         public String getCharacter() {
             return this.equals(EMPTY) ? "🌊" : this.equals(SHIP) ? "⛵" :
-                    this.equals(HIT) ? "🔥" : this.equals(MISS) ? "💩" : "☠";
+                    this.equals(HIT) ? "🔥" : this.equals(MISS) ? "💩" : "🤡";
         }
     }
     private boolean isShip, isHit, isHidden, isSunk;
