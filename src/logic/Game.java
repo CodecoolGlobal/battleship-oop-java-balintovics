@@ -10,15 +10,12 @@ import java.util.List;
 import java.util.Arrays;
 
 public class Game {
-    Player player;
-    Player opponent;
+    Player player = new Player();
+    Player opponent = new Player();
     ComputerPlayer ai;
     Input input = new Input();
     BoardFactory bf = new BoardFactory();
     boolean isTest = false;
-
-
-    public void placement() {
 
     public void mainGame() {
         Board board1 = new Board();
@@ -70,7 +67,7 @@ public class Game {
             player.handleShot(shot, ai);
             int[] aiShot = ai.ComputerPlayerEasy();
             ai.handleAIShot(aiShot, player);
-            Display.printTwoBoards(player.board, ai.board);
+            Display.printTwoBoards(player.board, ai.board, isTest);
         }
     }
 
@@ -84,8 +81,9 @@ public class Game {
             ai.determineDirection();
             int[] aiShot = ai.shootByDirection(player.board);
             ai.handleAIShot(aiShot, player);
-            Display.printTwoBoards(player.board, ai.board);
+            Display.printTwoBoards(player.board, ai.board, isTest);
         }
+    }
       
     private void victory(Player player, Player opponent) {
         String victoryShout;

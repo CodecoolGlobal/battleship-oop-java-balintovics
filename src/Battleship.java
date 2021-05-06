@@ -11,9 +11,8 @@ public class Battleship {
     public static void main(String[] args) {
         Display display = new Display();
 
-        display.displayMainMenu();
+        Display.displayMainMenu();
         Game game = new Game();
-        game.placement();
         game.PlayerVsNormalAI();
         game.mainGame();
     }

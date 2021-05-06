@@ -76,8 +76,7 @@ public class Display {
 
     public static void displayMainMenu() {
         String mainMenu = "Welcome to Tom Crew's game!\n" +
-                "Press enter to continue!\n";
-        //todo choosing set method, manual, random
+                "Press enter to continue!";
         System.out.println(mainMenu);
         Input.promptEnterKey();
     }
