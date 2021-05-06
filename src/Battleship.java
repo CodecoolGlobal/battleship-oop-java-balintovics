@@ -10,16 +10,11 @@ public class Battleship {
 
     public static void main(String[] args) {
         Display display = new Display();
-        Input input = new Input();
 
         display.displayMainMenu();
-//        Input.promptEnterKey();    This is still needed
         Game game = new Game();
         game.placement();
         game.PlayerVsNormalAI();
-//        while (true){
-//
-//        }
-
+        game.mainGame();
     }
 }

@@ -30,7 +30,6 @@ public class Player {
     }
 
     public Player() {
-
     }
 
     public void addShip(Ship ship) {

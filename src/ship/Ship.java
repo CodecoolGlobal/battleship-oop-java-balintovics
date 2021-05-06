@@ -18,6 +18,7 @@ public class Ship {
     private List<Square> squares;
     private boolean isSunk, isHorizontal;
     private int shipLength;
+    Display display;
 
 
     public Ship(boolean isHorizontal, ArrayList<Square> squares) {
@@ -47,7 +48,7 @@ public class Ship {
         for (Square square : this.squares) {
             square.setSunk();
         }
-//        Display.shout("You've sunk a ship!");
+        Display.shout("You've sunk a ship!");
         this.isSunk = true;
     }
 
