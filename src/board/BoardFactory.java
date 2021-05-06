@@ -109,8 +109,9 @@ public class BoardFactory {
             string = input.getString("Horizontal or vertical? ");
             String letter = string.toLowerCase();
             switch (letter) {
-                case "h", "v" -> isOk = true;
-                default -> string = input.getString("Only h or v please!");
+                case "h":
+                case "v": isOk = true;
+                default: string = input.getString("Only h or v please!");
             }
         } while (!isOk);
         return string;

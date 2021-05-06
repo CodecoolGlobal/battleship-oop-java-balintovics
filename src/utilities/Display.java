@@ -75,10 +75,8 @@ public class Display {
     }
 
     public void displayMainMenu() {
-        String mainMenu = """
-                Welcome to Tom Crew's game!\s
-                Press enter to continue!
-                """;
+        String mainMenu = "Welcome to Tom Crew's game!\n" +
+                "Press enter to continue!\n";
         System.out.println(mainMenu);
     }
 

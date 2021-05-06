@@ -33,13 +33,13 @@ public class Ship {
     }
 
     public String getShipName(int shipLength) {
-        return switch (shipLength) {
-            case 5 -> ShipType.Carrier.toString();
-            case 4 -> ShipType.Cruiser.toString();
-            case 3 -> ShipType.Battleship.toString();
-            case 2 -> ShipType.Submarine.toString();
-            default -> ShipType.Destroyer.toString();
-        };
+        switch (shipLength) {
+            case 5: return ShipType.Carrier.toString();
+            case 4: return ShipType.Cruiser.toString();
+            case 3: return ShipType.Battleship.toString();
+            case 2: return ShipType.Submarine.toString();
+            default: return ShipType.Destroyer.toString();
+        }
     }
 
     public void setSunk() {
