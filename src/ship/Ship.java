@@ -1,6 +1,7 @@
 package ship;
 
 import board.Square;
+import utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Ship {
     private List<Square> squares;
     private boolean isSunk, isHorizontal;
     private int shipLength;
+    Display display;
 
 
     public Ship(boolean isHorizontal, ArrayList<Square> squares) {
@@ -46,7 +48,7 @@ public class Ship {
         for (Square square : this.squares) {
             square.setSunk();
         }
-        System.out.println("Sunk");
+        display.shout("You've sunk a ship!");
         this.isSunk = true;
     }
 

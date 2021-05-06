@@ -110,7 +110,9 @@ public class BoardFactory {
             String letter = string.toLowerCase();
             switch (letter) {
                 case "h":
-                case "v": isOk = true;
+                case "v":
+                    isOk = true;
+                    break;
                 default: string = input.getString("Only h or v please!");
             }
         } while (!isOk);
