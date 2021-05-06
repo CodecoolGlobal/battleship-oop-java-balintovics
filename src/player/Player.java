@@ -26,11 +26,25 @@ public class Player {
     }
 
     public boolean isAlive() {
-        return ships.size() > 0;
+        for (Ship ship: this.ships) {
+            if (!ship.isSunk()) return true;
+        }
+        return false;
     }
 
     public void handleShot(int[] shot, Player opponent) {
         opponent.board.ocean[shot[0]][shot[1]].setVisibility(false);
         opponent.board.ocean[shot[0]][shot[1]].setHit();
+        for (Ship ship: opponent.ships) {
+                ship.canShipSink();
+            }
+    }
+
+    public boolean validShot(int[] shot, Player opponent) {
+        try {
+            opponent.board.ocean[shot[0]][shot[1]].setHit();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        } return true;
     }
 }

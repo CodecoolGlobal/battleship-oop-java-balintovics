@@ -14,7 +14,7 @@ public class Display {
     }
 
     public static void printSingleBoard(Board board) {
-        clear();
+//        clear();
         String border = "🟩";
 //        board.setBoardVisibility(false);
         StringBuilder sb = new StringBuilder();
@@ -43,6 +43,7 @@ public class Display {
 
     public static void printTwoBoards(Board board1, Board board2) {
         clear();
+        System.out.println();
         String border1 = "🟥";
         String border2 = "🟦";
         StringBuilder sd = new StringBuilder(); //PRINTING TOP & ALPHABET

@@ -5,22 +5,23 @@ public class Square {
         EMPTY,
         SHIP,
         HIT,
-        MISS;
+        MISS,
+        SUNK;
         public String getCharacter() {
             return this.equals(EMPTY) ? "🌊" : this.equals(SHIP) ? "⛵" :
-                    this.equals(HIT) ? "🔥" : "💩";
+                    this.equals(HIT) ? "🔥" : this.equals(MISS) ? "💩" : "🤡";
         }
     }
-    private boolean isShip, isHit, isHidden;
+    private boolean isShip, isHit, isHidden, isSunk;
     private final int x, y; // *
 
-    public Square(int x, int y) { // *  do not delete * comments yet
-//    public Square() {
+    public Square(int x, int y) {
         this.x = x; // *
         this.y = y; // *
         this.isShip = false;
         this.isHit = false;
         this.isHidden = false;
+        this.isSunk = false;
     }
 
     public int getX() { // *
@@ -39,6 +40,10 @@ public class Square {
         this.isHit = true;
     }
 
+    public void setSunk() {
+        this.isSunk = true;
+    }
+
     public void setVisibility(boolean state) {
         this.isHidden = state;
     }
@@ -51,13 +56,18 @@ public class Square {
         return isHit;
     }
 
+    public boolean isSunk() {
+        return isSunk;
+    }
+
     public boolean isHidden() {
         return isHidden;
     }
 
     public String toString() {
-        if (isHidden) return SquareStatus.EMPTY.getCharacter();
-        if (isShip() && isHit()) return SquareStatus.HIT.getCharacter();
+        if (isHidden()) return SquareStatus.EMPTY.getCharacter();
+        if (isShip() && isHit() && isSunk()) return SquareStatus.SUNK.getCharacter();
+        else if (isShip() && isHit()) return SquareStatus.HIT.getCharacter();
         else if (isShip()) return SquareStatus.SHIP.getCharacter();
         else if (isHit()) return SquareStatus.MISS.getCharacter();
         else return SquareStatus.EMPTY.getCharacter();

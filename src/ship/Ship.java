@@ -43,6 +43,10 @@ public class Ship {
     }
 
     public void setSunk() {
+        for (Square square : this.squares) {
+            square.setSunk();
+        }
+        System.out.println("Sunk");
         this.isSunk = true;
     }
 
@@ -62,14 +66,6 @@ public class Ship {
         this.isHorizontal = false;
     }
 
-//    public int getX() {
-//        return this.x;
-//    }
-//
-//    public int getY() {
-//        return this.y;
-//    }
-
     public List<Square> getShipSquares() {
         return this.squares;
     }
@@ -78,11 +74,11 @@ public class Ship {
         return squares.get(index);
     }
 
-    public void sinkShip() {
+    public void canShipSink() {
         boolean shouldBeSunk = true;
         for (Square nextSquare : squares) {
             if (!nextSquare.isHit()) shouldBeSunk = false;
         }
-        if (shouldBeSunk && !this.isSunk) this.isSunk = true;
+        if (shouldBeSunk && !this.isSunk) setSunk();
     }
 }
