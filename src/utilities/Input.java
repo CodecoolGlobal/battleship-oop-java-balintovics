@@ -13,12 +13,13 @@ public class Input {
         return input.nextLine();
     }
 
-    public int getInt() {
+    public int getInt(String message) {
+        Display.shout(message);
         try {
             return input.nextInt();
         } catch (NumberFormatException | InputMismatchException e) {
             Display.shout("Invalid input, please try again.\n");
-            getInt();
+            getInt(message);
         } return -1;
     }
 

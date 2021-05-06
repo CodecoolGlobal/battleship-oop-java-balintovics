@@ -107,4 +107,16 @@ public class ComputerPlayer extends Player {
             ship.canShipSink();
         }
     }
+
+    public void aiShootingAi(int[] shot, ComputerPlayer opponent) {
+        this.struck.add(0, shot);
+        this.lastShot = shot;
+        opponent.board.ocean[shot[0]][shot[1]].setVisibility(false);
+        opponent.board.ocean[shot[0]][shot[1]].setHit();
+        this.wasHit.add(0, setWasHit(opponent.board.ocean[shot[0]][shot[1]].isShip()));
+        if (opponent.board.ocean[shot[0]][shot[1]].isShip()) this.hit.add(0, shot);
+        for (Ship ship: opponent.ships) {
+            ship.canShipSink();
+        }
+    }
 }
