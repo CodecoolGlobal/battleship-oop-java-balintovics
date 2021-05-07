@@ -19,7 +19,14 @@ public class Game {
     Board board2 = new Board();
 
     public void mainGame() {
-        this.player = new Player(input.getString("Player 1, what is your name? "), board1, 1, "🟥");
+        String player1Name = "";
+
+        while (!player1Name.equals("Maverick")) {
+            player1Name = input.getString("Player 1, what is your name? ");
+//        String player2Name = input.getString("Player 2, what is your name? ");
+        }
+
+        this.player = new Player(player1Name, board1, 1, "🟥");
         this.opponent = new Player(input.getString("Player 2, what is your name? "), board2, 2, "🟦");
         choosePlacement();
         setBoardVisibility(board1, board2);
@@ -63,7 +70,7 @@ public class Game {
     }
 
     public void playVsAi(int mode) {
-        player = new Player(input.getString("Player 1, what is your name? "), board1, 1, "🟥");
+        player = new Player("Maverick", board1, 1, "🟥");
         ai = new ComputerPlayer("AI", board2);
         randomVsAiGameplay();
         setBoardVisibility(board1, board2);
