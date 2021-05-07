@@ -6,19 +6,25 @@ import java.util.Scanner;
 public class Input {
 
     private final Scanner input = new Scanner(System.in);
-    private Display display;
+    private Display display = new Display();
 
     public String getString(String message) {
-        Display.shout(message);
-        return input.nextLine();
+
+        String text = "";
+        while (text.length() < 2) {
+            display.shout(message);
+            text = input.nextLine();
+        }
+
+        return text;
     }
 
     public int getInt(String message) {
-        Display.shout(message);
+        display.shout(message);
         try {
             return input.nextInt();
         } catch (NumberFormatException | InputMismatchException e) {
-            Display.shout("Invalid input, please try again.\n");
+            display.shout("Invalid input, please try again.\n");
             getInt(message);
         } return -1;
     }
@@ -45,9 +51,5 @@ public class Input {
         return false;
     }
 
-    public static void promptEnterKey(){
-        Scanner scanner = new Scanner(System.in);
-        Display.shout("Press enter to continue!");
-        scanner.nextLine();
-    }
+
 }

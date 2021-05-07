@@ -48,7 +48,7 @@ public class Ship {
         for (Square square : this.squares) {
             square.setSunk();
         }
-        Display.shout("You've sunk a ship!");
+        display.shout("You've sunk a ship!");
         this.isSunk = true;
         Display.wait(1500);
     }

@@ -2,14 +2,17 @@ package utilities;
 
 import board.Board;
 
+import java.util.Scanner;
+
 public class Display {
+
 
     public static void clear() {
         System.out.print("\033\143");
         System.out.flush();
     }
 
-    public static void shout(String message) {
+    public void shout(String message) {
         System.out.println(message);
     }
 
@@ -71,14 +74,14 @@ public class Display {
         System.out.println(sd);
     }
 
-    public static void displayMainMenu() {
+    public void displayMainMenu() {
         clear();
         String mainMenu = "Welcome to Tom Crew's game!";
         System.out.println(ASCII.tomCruise());
-        Input.promptEnterKey();
+        promptEnterKey();
         clear();
         System.out.println(mainMenu);
-        Input.promptEnterKey();
+        promptEnterKey();
     }
 
     public static void wait(int ms) {
@@ -88,6 +91,12 @@ public class Display {
         catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    public void promptEnterKey(){
+        Scanner scanner = new Scanner(System.in);
+        shout("Press enter to continue!");
+        scanner.nextLine();
     }
 }
 

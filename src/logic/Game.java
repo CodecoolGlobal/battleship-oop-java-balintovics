@@ -8,6 +8,7 @@ import utilities.Display;
 import utilities.Input;
 
 public class Game {
+    Display display;
     Player player;
     Player opponent;
     ComputerPlayer ai;
@@ -20,11 +21,13 @@ public class Game {
 
     public void mainGame() {
         String player1Name = "";
+        String player2Name = "";
 
-        while (!player1Name.equals("Maverick")) {
+//        while (!player1Name.equals("Maverick")) {
             player1Name = input.getString("Player 1, what is your name? ");
-//        String player2Name = input.getString("Player 2, what is your name? ");
-        }
+         player2Name = input.getString("Player 2, what is your name? ");
+
+//        }
 
         this.player = new Player(player1Name, board1, 1, "🟥");
         this.opponent = new Player(input.getString("Player 2, what is your name? "), board2, 2, "🟦");
@@ -129,7 +132,7 @@ public class Game {
     }
 
     private void waitingForAI() {
-        Display.shout("Calculating...");
+        display.shout("Calculating...");
         Display.wait(1500);
     }
 
@@ -140,7 +143,7 @@ public class Game {
         } else {
             victoryShout = opponent.name + " has won!";
         }
-        Display.shout(victoryShout);
+        display.shout(victoryShout);
     }
 
     private void randomGameplay() {
