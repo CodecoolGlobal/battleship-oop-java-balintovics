@@ -5,13 +5,8 @@ import ship.Ship;
 
 import java.util.ArrayList;
 
-public class Player {
-    public String name;
-    public ArrayList<Ship> ships = new ArrayList<>();
-    public Board board;
-    public int rank;
-    public String symbol;
-    public ArrayList<int[]> struck = new ArrayList<>();
+public class Player extends IPlayer{
+
 
     public Player(String name, Board board, int rank, String symbol) {
         this.name = name;
@@ -42,20 +37,21 @@ public class Player {
         return false;
     }
 
-    public void handleShot(int[] shot, Player opponent) {
-        this.struck.add(shot);
-        opponent.board.ocean[shot[0]][shot[1]].setVisibility(false);
-        opponent.board.ocean[shot[0]][shot[1]].setHit();
-        for (Ship ship: opponent.ships) {
-                ship.canShipSink();
-            }
-    }
-
     public boolean validShot(int[] shot, Player opponent) {
         try {
             opponent.board.ocean[shot[0]][shot[1]].setHit();
         } catch (IndexOutOfBoundsException e) {
             return false;
         } return true;
+    }
+
+    @Override
+    public void handleShot(int[] shot, IPlayer opponent) {
+        this.struck.add(shot);
+        opponent.board.ocean[shot[0]][shot[1]].setVisibility(false);
+        opponent.board.ocean[shot[0]][shot[1]].setHit();
+        for (Ship ship: opponent.ships) {
+            ship.canShipSink();
+        }
     }
 }

@@ -2,6 +2,7 @@ package board;
 
 import player.Player;
 import ship.Ship;
+import ship.ShipType;
 import utilities.*;
 
 import java.util.ArrayList;
@@ -10,27 +11,26 @@ import java.util.Random;
 public class BoardFactory {
     Input input = new Input();
     Display display = new Display();
-    Ship ship = new Ship();
 
-    public void randomPlacement(Player player, int shipSize) {
-        display.shout(String.format("Time to place your %s (size: %s), %s" , ship.getShipName(shipSize), shipSize, player.name));
+    public void randomPlacement(Player player, ShipType shipType) {
+        display.shout(String.format("Time to place your %s (size: %s), %s" , shipType, shipType, player.name));
         String[] directions = {"h", "v"};
         String direction = directions[new Random().nextInt(2)];
         int[] coordinate = {new Random().nextInt(player.board.ocean.length), new Random().nextInt(player.board.ocean.length)};
-        while (!validPlace(player, shipSize, coordinate, direction)) {
+        while (!validPlace(player, shipType.getLength(), coordinate, direction)) {
             coordinate = new int[]{new Random().nextInt(player.board.ocean.length), new Random().nextInt(player.board.ocean.length)};
         }
-        setPlacement(coordinate, player, direction, shipSize);
+        setPlacement(coordinate, player, direction, shipType);
     }
 
-    public void manualPlacement(Player player, int shipSize) {
-        display.shout(String.format("Time to place your %s (size: %s), %s" , ship.getShipName(shipSize), shipSize, player.name));
+    public void manualPlacement(Player player, ShipType shipType) {
+        display.shout(String.format("Time to place your %s (size: %s), %s" , shipType, shipType.getLength(), player.name));
         String direction = isInputHorizontalOrVertical();
         String coordinate = input.getString(String.format("Choose a coordinate, %s: ", player.name));
         int[] placement = input.convertPlacement(coordinate);
-        while (!validPlace(player, shipSize, placement, direction)){
+        while (!validPlace(player, shipType.getLength(), placement, direction)){
             placement = input.convertPlacement(input.getString("Invalid placement. Choose another coordinate: "));
-        } setPlacement(placement, player, direction, shipSize);
+        } setPlacement(placement, player, direction, shipType);
     }
 
     private boolean validPlace(Player player, int shipSize, int[] coordinate, String direction) { //Checks if chosen squares are empty, returns false if not, or out of bounds.
@@ -84,20 +84,18 @@ public class BoardFactory {
         }
     }
 
-    public void setPlacement(int[] coordinate, Player player, String direction, int shipSize) { //Marks chosen Squares as SHIP.
+    public void setPlacement(int[] coordinate, Player player, String direction, ShipType shipType) { //Marks chosen Squares as SHIP.
         ArrayList<Square> squares = new ArrayList<>();
-        boolean isHorizontal =  true;
-        for (int i=0;i<shipSize;i++) {
+        for (int i=0;i<shipType.getLength();i++) {
             if (direction.equals("h")) {
                 player.board.ocean[coordinate[0]][coordinate[1] + i].setShip();
                 squares.add(player.board.ocean[coordinate[0]][coordinate[1] + i]);
             } else {
-                isHorizontal = false;
                 player.board.ocean[coordinate[0] + i][coordinate[1]].setShip();
                 squares.add(player.board.ocean[coordinate[0] + i][coordinate[1]]);
             }
         }
-        Ship ship = new Ship(isHorizontal, squares);
+        Ship ship = new Ship(squares, shipType);
         player.addShip(ship);
     }
 

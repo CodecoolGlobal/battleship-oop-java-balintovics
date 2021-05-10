@@ -2,7 +2,9 @@ package utilities;
 
 import board.Board;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Display {
 
@@ -23,7 +25,8 @@ public class Display {
         sb.append(repeat);
         sb.append("\n");
         for (int k = 0; k < board.BOARD_SIZE; k++) {
-            if (k == 0) sb.append(border).append("   ");
+            if (k == 0)
+                sb.append(border).append("   ");
             String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             sb.append(" ").append(Color.YELLOW).append(alphabet.charAt(k)).append(" ").append(Color.RESET);
         }
@@ -31,8 +34,10 @@ public class Display {
         for (int i = 0; i < board.BOARD_SIZE; i++) {
             for (int j = 0; j < board.BOARD_SIZE; j++) {
 
-                if (i == board.BOARD_SIZE - 1 && j == 0) sb.append(Color.YELLOW).append(border).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
-                else if (j == 0) sb.append(Color.YELLOW).append(border).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
+                if (i == board.BOARD_SIZE - 1 && j == 0)
+                    sb.append(Color.YELLOW).append(border).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
+                else if (j == 0)
+                    sb.append(Color.YELLOW).append(border).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
                 sb.append(board.ocean[i][j]).append(" ");
             }
             sb.append(border).append("\n");
@@ -61,13 +66,20 @@ public class Display {
         }  //PRINTING ACTUAL BOARDS
         for (int i = 0; i < board1.BOARD_SIZE; i++) {
             for (int j = 0; j < board1.BOARD_SIZE*2+2; j++) {
-                if (i == board1.BOARD_SIZE - 1 && j == 0) sd.append(Color.YELLOW).append(border1).append(" ").append(i+1).append(" ").append(Color.RESET);
-                else if (j == 0) sd.append(Color.YELLOW).append(border1).append(" ").append(i+1).append("  ").append(Color.RESET);
-                if (j<10) sd.append(board1.ocean[i][j]).append(" ");
-                if (j == 10) sd.append(border1).append("  ❕  ").append(border2);
-                if (j == 11) sd.append(Color.YELLOW).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
-                if (j>11) sd.append(board2.ocean[i][j-12]).append(" ");
-                if (j == board1.BOARD_SIZE * 2 + 1) sd.append(border2).append("\n");
+                if (i == board1.BOARD_SIZE - 1 && j == 0)
+                    sd.append(Color.YELLOW).append(border1).append(" ").append(i+1).append(" ").append(Color.RESET);
+                else if (j == 0)
+                    sd.append(Color.YELLOW).append(border1).append(" ").append(i+1).append("  ").append(Color.RESET);
+                if (j<10)
+                    sd.append(board1.ocean[i][j]).append(" ");
+                if (j == 10)
+                    sd.append(border1).append("  ❕  ").append(border2);
+                if (j == 11)
+                    sd.append(Color.YELLOW).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
+                if (j>11)
+                    sd.append(board2.ocean[i][j-12]).append(" ");
+                if (j == board1.BOARD_SIZE * 2 + 1)
+                    sd.append(border2).append("\n");
             }
         }
         sd.append(repeat1).append(" ❕  ").append(repeat2).append("\n");

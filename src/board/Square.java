@@ -2,14 +2,20 @@ package board;
 
 public class Square {
     private enum SquareStatus {
-        EMPTY,
-        SHIP,
-        HIT,
-        MISS,
-        SUNK;
+        EMPTY("☁ "),
+        SHIP("🛩 "),
+        HIT("🔥"),
+        MISS("💩"),
+        SUNK("💀");
+
+        String squareCharatcter;
+
+        SquareStatus(String squareCharatcter) {
+            this.squareCharatcter = squareCharatcter;
+        }
+
         public String getCharacter() {
-            return this.equals(EMPTY) ? "☁ " : this.equals(SHIP) ? "🛩 " :
-                    this.equals(HIT) ? "🔥" : this.equals(MISS) ? "💩" : "💀";
+            return squareCharatcter;
         }
     }
     private boolean isShip, isHit, isHidden, isSunk;

@@ -3,16 +3,18 @@ package logic;
 import board.Board;
 import board.BoardFactory;
 import player.ComputerPlayer;
+import player.IPlayer;
 import player.Player;
+import ship.ShipType;
 import utilities.Display;
 import utilities.Input;
 
 public class Game {
     Display display;
-    Player player;
-    Player opponent;
-    ComputerPlayer ai;
-    ComputerPlayer ia;
+    IPlayer player;
+    IPlayer opponent;
+    IPlayer ai;
+    IPlayer ia;
     Input input = new Input();
     BoardFactory bf = new BoardFactory();
     boolean isTest = false;
@@ -146,6 +148,7 @@ public class Game {
         display.shout(victoryShout);
     }
 
+    // TODO: concatanate randomGameplay and randomVsAiGameplay by parametrizing the input
     private void randomGameplay() {
         Display.printSingleBoard(board1);
         for (int j = 0; j < 2; j++) {
@@ -175,22 +178,28 @@ public class Game {
     }
 
     private void manualGameplay() {
+        var listOfShips = new ShipType[]{
+                ShipType.Battleship,
+                ShipType.Destroyer,
+                ShipType.Carrier
+        };
+
         for (int j = 0; j < 2; j++) {
-            for (int i = 5; i > 1; i--) {
+            for (var ship : listOfShips) {
                 if (j == 0) {
                     Display.clear();
                     Display.printSingleBoard(board1);
-                    bf.manualPlacement(player, i);
+                    bf.manualPlacement(player, ship);
                     Display.printSingleBoard(board1);
-                    if (i == 2) {
+                    if (ship.getLength() == 2) {
                         Display.clear();
                     }
                 } else {
                     Display.clear();
                     Display.printSingleBoard(board2);
-                    bf.manualPlacement(opponent, i);
+                    bf.manualPlacement(opponent, ship);
                     Display.printSingleBoard(board2);
-                    if (i == 2) {
+                    if (ship.getLength() == 2) {
                         Display.clear();
                     }
                 }
