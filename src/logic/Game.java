@@ -10,11 +10,11 @@ import utilities.Display;
 import utilities.Input;
 
 public class Game {
-    Display display;
+    Display display = new Display();
     IPlayer player;
     IPlayer opponent;
-    IPlayer ai;
-    IPlayer ia;
+    ComputerPlayer ai;
+    ComputerPlayer ia;
     Input input = new Input();
     BoardFactory bf = new BoardFactory();
     boolean isTest = false;
@@ -64,7 +64,7 @@ public class Game {
         board2.setBoardVisibility(true);
     }
 
-    private void swapPlayer(Player player, Player opponent) {
+    private void swapPlayer(IPlayer player, IPlayer opponent) {
         if (this.player == player) {
             this.player = opponent;
             this.opponent = player;
@@ -92,14 +92,14 @@ public class Game {
         setBoardVisibility(board1, board2);
         Display.printTwoBoards(board1, board2, false);
         while (ai.isAlive() && ia.isAlive()) {
-            int[] aiShot = ai.ComputerPlayerEasy();
+            int[] aiShot = ai.shot();
             ai.aiShootingAi(aiShot, ia);
             waitingForAI();
-            Display.printTwoBoards(ai.board, ia.board, isTest);
-            int[] iaShot = ai.ComputerPlayerEasy();
+            Display.printTwoBoards(ai.getBoard(), ia.getBoard(), isTest);
+            int[] iaShot = ai.shot();
             ia.aiShootingAi(iaShot, ai);
             waitingForAI();
-            Display.printTwoBoards(ai.board, ia.board, isTest);
+            Display.printTwoBoards(ai.getBoard(), ia.getBoard(), isTest);
         }
 
     }
@@ -111,10 +111,10 @@ public class Game {
                 shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
             }
             player.handleShot(shot, ai);
-            int[] aiShot = ai.ComputerPlayerEasy();
-            ai.handleAIShot(aiShot, player);
+            int[] aiShot = ai.shot();
+            ai.handleShot(aiShot, player);
             waitingForAI();
-            Display.printTwoBoards(player.board, ai.board, isTest);
+            Display.printTwoBoards(player.getBoard(), ai.getBoard(), isTest);
         }
     }
 
@@ -126,10 +126,10 @@ public class Game {
             }
             player.handleShot(shot, ai);
             ai.determineDirection();
-            int[] aiShot = ai.shootByDirection(player.board);
-            ai.handleAIShot(aiShot, player);
+            int[] aiShot = ai.shootByDirection(player.getBoard());
+            ai.handleShot(aiShot, player);
             waitingForAI();
-            Display.printTwoBoards(player.board, ai.board, isTest);
+            Display.printTwoBoards(player.getBoard(), ai.getBoard(), isTest);
         }
     }
 
@@ -138,7 +138,7 @@ public class Game {
         Display.wait(1500);
     }
 
-    private void victory(Player player, Player opponent) {
+    private void victory(IPlayer player, IPlayer opponent) {
         String victoryShout;
         if (player.isAlive()) {
             victoryShout = player.name + " has won! GLORY!";
@@ -148,16 +148,16 @@ public class Game {
         display.shout(victoryShout);
     }
 
-    // TODO: concatanate randomGameplay and randomVsAiGameplay by parametrizing the input
+    // TODO: concatenate randomGameplay and randomVsAiGameplay by parameterizing the input
     private void randomGameplay() {
         Display.printSingleBoard(board1);
         for (int j = 0; j < 2; j++) {
-            for (int i = 5; i > 1; i--) {
+            for (int i = 4; i > 1; i--) {
                 if (j == 0) {
-                    bf.randomPlacement(player, i);
+                    bf.randomPlacement((Player) player, ShipType.values()[i]); //TODO: check if right
                     Display.printSingleBoard(board1);
                 } else {
-                    bf.randomPlacement(opponent, i);
+                    bf.randomPlacement(opponent, ShipType.values()[i]);
                 }
             }
         }
@@ -166,12 +166,12 @@ public class Game {
     private void randomVsAiGameplay() {
         Display.printSingleBoard(board1);
         for (int j = 0; j < 2; j++) {
-            for (int i = 5; i > 1; i--) {
+            for (int i = 4; i > 1; i--) {
                 if (j == 0) {
-                    bf.randomPlacement(player, i);
+                    bf.randomPlacement(player, ShipType.values()[i]);
                     Display.printSingleBoard(board1);
                 } else {
-                    bf.randomPlacement(ai, i);
+                    bf.randomPlacement(ai, ShipType.values()[i]);
                 }
             }
         }
@@ -189,7 +189,7 @@ public class Game {
                 if (j == 0) {
                     Display.clear();
                     Display.printSingleBoard(board1);
-                    bf.manualPlacement(player, ship);
+                    bf.manualPlacement((Player) player, ship);
                     Display.printSingleBoard(board1);
                     if (ship.getLength() == 2) {
                         Display.clear();
@@ -197,7 +197,7 @@ public class Game {
                 } else {
                     Display.clear();
                     Display.printSingleBoard(board2);
-                    bf.manualPlacement(opponent, ship);
+                    bf.manualPlacement((Player) opponent, ship);
                     Display.printSingleBoard(board2);
                     if (ship.getLength() == 2) {
                         Display.clear();
@@ -209,12 +209,12 @@ public class Game {
 
     private void AivsAiPlacement() {
         for (int j = 0; j < 2; j++) {
-            for (int i = 5; i > 1; i--) {
+            for (int i = 4; i > 1; i--) {
                 if (j == 0) {
                     Display.clear();
-                    bf.randomPlacement(ai, i);
+                    bf.randomPlacement(ai, ShipType.values()[i]);
                 } else {
-                    bf.randomPlacement(ia, i);
+                    bf.randomPlacement(ia, ShipType.values()[i]);
                     if (i == 2) {
                         Display.clear();
                     }
@@ -227,15 +227,15 @@ public class Game {
     private void testGameplay(Board board1, Board board2) {
 
         Display.printSingleBoard(board1);
-        bf.randomPlacement(player, 2);
-        bf.randomPlacement(opponent, 2);
-        bf.randomPlacement(player, 2);
-        bf.randomPlacement(opponent, 2);
+        bf.randomPlacement(player, ShipType.values()[4]);
+        bf.randomPlacement(opponent, ShipType.values()[4]);
+        bf.randomPlacement(player, ShipType.values()[4]);
+        bf.randomPlacement(opponent, ShipType.values()[4]);
         Display.printSingleBoard(board1);
         Display.printSingleBoard(board2);
     }
 
-    private void shootingPhase(Player player, Player opponent, Board board1, Board board2) {
+    private void shootingPhase(IPlayer player, IPlayer opponent, Board board1, Board board2) {
         int[] shot = input.convertPlacement(input.getString(String.format("Time for shooting, %s! GET'EM!!!!", player.name)));
 //        while (player.struck.contains(shot)) shot = input.convertPlacement(input.getString("You already shot there, dude..."));
         while (!player.validShot(shot, opponent) || player.struck.contains(shot)) { //TODO: FIX -> struck contains doesn't work

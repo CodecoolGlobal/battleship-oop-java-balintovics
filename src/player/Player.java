@@ -26,10 +26,6 @@ public class Player extends IPlayer{
     public Player() {
     }
 
-    public void addShip(Ship ship) {
-        this.ships.add(ship);
-    }
-
     public boolean isAlive() {
         for (Ship ship: this.ships) {
             if (!ship.isSunk()) return true;
@@ -39,7 +35,7 @@ public class Player extends IPlayer{
 
     public boolean validShot(int[] shot, Player opponent) {
         try {
-            opponent.board.ocean[shot[0]][shot[1]].setHit();
+            opponent.getBoard().ocean[shot[0]][shot[1]].setHit();
         } catch (IndexOutOfBoundsException e) {
             return false;
         } return true;
@@ -48,8 +44,8 @@ public class Player extends IPlayer{
     @Override
     public void handleShot(int[] shot, IPlayer opponent) {
         this.struck.add(shot);
-        opponent.board.ocean[shot[0]][shot[1]].setVisibility(false);
-        opponent.board.ocean[shot[0]][shot[1]].setHit();
+        opponent.getBoard().ocean[shot[0]][shot[1]].setVisibility(false);
+        opponent.getBoard().ocean[shot[0]][shot[1]].setHit();
         for (Ship ship: opponent.ships) {
             ship.canShipSink();
         }
