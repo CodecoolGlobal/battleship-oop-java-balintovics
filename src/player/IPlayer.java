@@ -15,7 +15,12 @@ public abstract class IPlayer {
     public ArrayList<int[]> struck = new ArrayList<>();
     public void handleShot(int[] shot, IPlayer opponent){};
     public boolean isAlive(){return true;}
-    public boolean validShot(int[] shot, IPlayer opponent){ return false;} //TODO: FIX!
+    public boolean validShot(int[] shot, IPlayer opponent){
+        try {
+            opponent.getBoard().ocean[shot[0]][shot[1]].setHit();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        } return true;}
 
     public Board getBoard() {
         return board;

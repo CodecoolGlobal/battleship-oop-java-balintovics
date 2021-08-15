@@ -33,14 +33,6 @@ public class Player extends IPlayer{
         return false;
     }
 
-    public boolean validShot(int[] shot, Player opponent) {
-        try {
-            opponent.getBoard().ocean[shot[0]][shot[1]].setHit();
-        } catch (IndexOutOfBoundsException e) {
-            return false;
-        } return true;
-    }
-
     @Override
     public void handleShot(int[] shot, IPlayer opponent) {
         this.struck.add(shot);
