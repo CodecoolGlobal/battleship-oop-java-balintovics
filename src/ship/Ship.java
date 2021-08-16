@@ -11,7 +11,7 @@ public class Ship {
     private List<Square> squares;
     private boolean isSunk;
     private ShipType shipType;
-    Display display;
+    Display display = new Display();
 
 
     public Ship(ArrayList<Square> squares, ShipType shipType) {
