@@ -17,7 +17,7 @@ public abstract class IPlayer {
     public boolean isAlive(){return true;}
     public boolean validShot(int[] shot, IPlayer opponent){
         try {
-            opponent.getBoard().ocean[shot[0]][shot[1]].setHit();
+            opponent.getBoard().getOcean()[shot[0]][shot[1]].setHit();
         } catch (IndexOutOfBoundsException e) {
             return false;
         } return true;}

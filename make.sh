@@ -1,4 +1,5 @@
 #!/bin/sh
 
-find -name '*.java' | xargs javac -d "cica"
-java -cp cica Battleship
+# shellcheck disable=SC2038
+find -name '*.java' | xargs javac -d "out"
+java -cp out Battleship

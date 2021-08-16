@@ -38,7 +38,7 @@ public class Display {
                     sb.append(Color.YELLOW).append(border).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
                 else if (j == 0)
                     sb.append(Color.YELLOW).append(border).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
-                sb.append(board.ocean[i][j]).append(" ");
+                sb.append(board.getOcean()[i][j]).append(" ");
             }
             sb.append(border).append("\n");
         }
@@ -71,13 +71,13 @@ public class Display {
                 else if (j == 0)
                     sd.append(Color.YELLOW).append(border1).append(" ").append(i+1).append("  ").append(Color.RESET);
                 if (j<10)
-                    sd.append(board1.ocean[i][j]).append(" ");
+                    sd.append(board1.getOcean()[i][j]).append(" ");
                 if (j == 10)
                     sd.append(border1).append("  ❕  ").append(border2);
                 if (j == 11)
                     sd.append(Color.YELLOW).append(String.format("%3d", i+1)).append(" ").append(Color.RESET);
                 if (j>11)
-                    sd.append(board2.ocean[i][j-12]).append(" ");
+                    sd.append(board2.getOcean()[i][j-12]).append(" ");
                 if (j == board1.BOARD_SIZE * 2 + 1)
                     sd.append(border2).append("\n");
             }

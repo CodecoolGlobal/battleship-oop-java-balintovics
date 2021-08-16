@@ -36,8 +36,8 @@ public class Player extends IPlayer{
     @Override
     public void handleShot(int[] shot, IPlayer opponent) {
         this.struck.add(shot);
-        opponent.getBoard().ocean[shot[0]][shot[1]].setVisibility(false);
-        opponent.getBoard().ocean[shot[0]][shot[1]].setHit();
+        opponent.getBoard().getOcean()[shot[0]][shot[1]].setVisibility(false);
+        opponent.getBoard().getOcean()[shot[0]][shot[1]].setHit();
         for (Ship ship: opponent.ships) {
             ship.canShipSink();
         }

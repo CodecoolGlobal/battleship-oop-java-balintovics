@@ -131,10 +131,10 @@ public class ComputerPlayer extends IPlayer {
     public void handleShot(int[] shot, IPlayer opponent) {
         this.struck.add(0, shot);
         this.lastShot = shot;
-        opponent.board.ocean[shot[0]][shot[1]].setVisibility(false);
-        opponent.board.ocean[shot[0]][shot[1]].setHit();
-        this.wasHit.add(0, setWasHit(opponent.board.ocean[shot[0]][shot[1]].isShip()));
-        if (opponent.board.ocean[shot[0]][shot[1]].isShip()) this.hit.add(0, shot);
+        opponent.getBoard().getOcean()[shot[0]][shot[1]].setVisibility(false);
+        opponent.getBoard().getOcean()[shot[0]][shot[1]].setHit();
+        this.wasHit.add(0, setWasHit(opponent.getBoard().getOcean()[shot[0]][shot[1]].isShip()));
+        if (opponent.getBoard().getOcean()[shot[0]][shot[1]].isShip()) this.hit.add(0, shot);
         for (Ship ship : opponent.ships) {
             ship.canShipSink();
         }
@@ -143,10 +143,10 @@ public class ComputerPlayer extends IPlayer {
     public void aiShootingAi(int[] shot, ComputerPlayer opponent) {
         this.struck.add(0, shot);
         this.lastShot = shot;
-        opponent.board.ocean[shot[0]][shot[1]].setVisibility(false);
-        opponent.board.ocean[shot[0]][shot[1]].setHit();
-        this.wasHit.add(0, setWasHit(opponent.board.ocean[shot[0]][shot[1]].isShip()));
-        if (opponent.board.ocean[shot[0]][shot[1]].isShip()) this.hit.add(0, shot);
+        opponent.getBoard().getOcean()[shot[0]][shot[1]].setVisibility(false);
+        opponent.getBoard().getOcean()[shot[0]][shot[1]].setHit();
+        this.wasHit.add(0, setWasHit(opponent.getBoard().getOcean()[shot[0]][shot[1]].isShip()));
+        if (opponent.getBoard().getOcean()[shot[0]][shot[1]].isShip()) this.hit.add(0, shot);
         for (Ship ship : opponent.ships) {
             ship.canShipSink();
         }

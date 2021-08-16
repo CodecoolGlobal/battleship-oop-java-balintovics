@@ -17,9 +17,9 @@ public class BoardFactory {
         display.shout(String.format("Time to place your %s (size: %s), %s" , shipType, shipType, player.name));
         String[] directions = {"h", "v"};
         String direction = directions[new Random().nextInt(2)];
-        int[] coordinate = {new Random().nextInt(player.getBoard().ocean.length), new Random().nextInt(player.getBoard().ocean.length)};
+        int[] coordinate = {new Random().nextInt(player.getBoard().getOcean().length), new Random().nextInt(player.getBoard().getOcean().length)};
         while (!validPlace(player, shipType.getLength(), coordinate, direction)) {
-            coordinate = new int[]{new Random().nextInt(player.getBoard().ocean.length), new Random().nextInt(player.getBoard().ocean.length)};
+            coordinate = new int[]{new Random().nextInt(player.getBoard().getOcean().length), new Random().nextInt(player.getBoard().getOcean().length)};
         }
         setPlacement(coordinate, player, direction, shipType);
     }
@@ -39,9 +39,9 @@ public class BoardFactory {
         try {
             for (int i=0;i<shipSize;i++) {
                 if (direction.equals("h")) {
-                    targetCoordinate = new int[]{player.getBoard().ocean[coordinate[0]][coordinate[1] + i].getX(),player.getBoard().ocean[coordinate[0]][coordinate[1] + i].getY()};
+                    targetCoordinate = new int[]{player.getBoard().getOcean()[coordinate[0]][coordinate[1] + i].getX(),player.getBoard().getOcean()[coordinate[0]][coordinate[1] + i].getY()};
                 } else {
-                    targetCoordinate = new int[]{player.getBoard().ocean[coordinate[0] + i][coordinate[1]].getX(),player.getBoard().ocean[coordinate[0] + i][coordinate[1]].getY()};
+                    targetCoordinate = new int[]{player.getBoard().getOcean()[coordinate[0] + i][coordinate[1]].getX(),player.getBoard().getOcean()[coordinate[0] + i][coordinate[1]].getY()};
                 }
                 if (!player.getBoard().isPlacementOk(targetCoordinate) || !checkNeighbours(targetCoordinate, direction, player)) return false;
             } if (!checkEdgeNeighbours(coordinate, direction, player, shipSize)) return false;
@@ -89,11 +89,11 @@ public class BoardFactory {
         ArrayList<Square> squares = new ArrayList<>();
         for (int i=0;i<shipType.getLength();i++) {
             if (direction.equals("h")) {
-                player.getBoard().ocean[coordinate[0]][coordinate[1] + i].setShip();
-                squares.add(player.getBoard().ocean[coordinate[0]][coordinate[1] + i]);
+                player.getBoard().getOcean()[coordinate[0]][coordinate[1] + i].setShip();
+                squares.add(player.getBoard().getOcean()[coordinate[0]][coordinate[1] + i]);
             } else {
-                player.getBoard().ocean[coordinate[0] + i][coordinate[1]].setShip();
-                squares.add(player.getBoard().ocean[coordinate[0] + i][coordinate[1]]);
+                player.getBoard().getOcean()[coordinate[0] + i][coordinate[1]].setShip();
+                squares.add(player.getBoard().getOcean()[coordinate[0] + i][coordinate[1]]);
             }
         }
         Ship ship = new Ship(squares, shipType);
@@ -107,11 +107,8 @@ public class BoardFactory {
             string = input.getString("Horizontal or vertical? ");
             String letter = string.toLowerCase();
             switch (letter) {
-                case "h":
-                case "v":
-                    isOk = true;
-                    break;
-                default: string = input.getString("Only h or v please!");
+                case "h", "v" -> isOk = true;
+                default -> string = input.getString("Only h or v please!");
             }
         } while (!isOk);
         return string;

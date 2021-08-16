@@ -3,7 +3,8 @@ package board;
 public class Board {
 
     public final int BOARD_SIZE = 10;
-    public final Square[][] ocean = new Square[BOARD_SIZE][BOARD_SIZE];
+
+    private final Square[][] ocean = new Square[BOARD_SIZE][BOARD_SIZE];
 
     public Board() {
         for (int i=0;i<BOARD_SIZE;i++) {
@@ -14,7 +15,7 @@ public class Board {
     }
 
     public void setBoardVisibility(boolean status) {
-        for (Square[] row: this.ocean) {
+        for (Square[] row: ocean) {
             for (Square col: row) {
                 col.setVisibility(status);
             }
@@ -24,9 +25,13 @@ public class Board {
     public boolean isPlacementOk(int[] placement) {
         int positionX = placement[0];
         int positionY = placement[1];
-        return 0 <= positionX && positionX < this.BOARD_SIZE &&
-               0 <= positionY && positionY < this.BOARD_SIZE && // Is it on board?
-               !this.ocean[positionX][positionY].isShip(); // DO NOT put it on other ships
+        return 0 <= positionX && positionX < BOARD_SIZE &&
+               0 <= positionY && positionY < BOARD_SIZE && // Is it on board?
+               !ocean[positionX][positionY].isShip(); // DO NOT put it on other ships
     }
 
+
+    public Square[][] getOcean() {
+        return ocean;
+    }
 }
