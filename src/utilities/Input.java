@@ -6,16 +6,16 @@ import java.util.Scanner;
 public class Input {
 
     private final Scanner input = new Scanner(System.in);
-    private Display display = new Display();
+    private final Display display = new Display();
 
     public String getString(String message) {
+        Scanner sc = new Scanner(System.in); //Workaround of double shouting problem
+        display.shout(message);
 
         String text = "";
-        while (text.length() < 2) {
-            display.shout(message);
-            text = input.nextLine();
+        while (text.length() < 1) {
+            text = sc.nextLine();
         }
-
         return text;
     }
 
@@ -26,12 +26,15 @@ public class Input {
         } catch (NumberFormatException | InputMismatchException e) {
             display.shout("Invalid input, please try again.\n");
             getInt(message);
-        } return -1;
+        }
+        return -1;
     }
 
     public int[] convertPlacement(String coordinate) {
         try {
-            while (!coordinateCheck(coordinate)) {coordinate = getString("Invalid input, try again! ").toLowerCase();}
+            while (!coordinateCheck(coordinate)) {
+                coordinate = getString("Invalid input, try again! ").toLowerCase();
+            }
             char[] letters = "abcdefghij".toCharArray();
             String letter = coordinate.substring(0, 1).toLowerCase();
             int row = new String(letters).indexOf(letter);

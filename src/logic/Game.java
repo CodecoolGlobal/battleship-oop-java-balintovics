@@ -22,23 +22,23 @@ public class Game {
     Board board2 = new Board();
 
     public void mainGame() {
-        String player1Name = "";
-        String player2Name = "";
+        //String player1Name = "";
+        //String player2Name = "";
 
 //        while (!player1Name.equals("Maverick")) {
-            player1Name = input.getString("Player 1, what is your name? ");
-         player2Name = input.getString("Player 2, what is your name? ");
+        //player1Name = input.getString("Player 1, what is your name? ");
+        //player2Name = input.getString("Player 2, what is your name? ");
 
 //        }
 
-        this.player = new Player(player1Name, board1, 1, "🟥");
-        this.opponent = new Player(input.getString("Player 2, what is your name? "), board2, 2, "🟦");
+        player = new Player(input.getString("Player 1, what is your name? "), board1, 1, "🟥");
+        opponent = new Player(input.getString("Player 2, what is your name? "), board2, 2, "🟦");
         choosePlacement();
         setBoardVisibility(board1, board2);
         Display.printTwoBoards(board1, board2, isTest);
 
         while (player.isAlive() && opponent.isAlive()) {
-            shootingPhase(this.player, this.opponent, board1, board2);
+            shootingPhase(player, opponent, board1, board2);
         }
         victory(player, opponent);
     }
@@ -46,16 +46,12 @@ public class Game {
     private void choosePlacement() {
         String placementType = input.getString("Please choose: (m)anual or (r)andom ship placement: ").toLowerCase();
         switch (placementType) {
-            case "m":
-                manualGameplay();
-                break;
-            case "t":
+            case "m" -> manualGameplay();
+            case "t" -> {
                 testGameplay(board1, board2);
                 isTest = true;
-                break;
-            default:
-                randomGameplay();
-                break;
+            }
+            default -> randomGameplay();
         }
     }
 
@@ -135,7 +131,7 @@ public class Game {
 
     private void waitingForAI() {
         display.shout("Calculating...");
-        Display.wait(1500);
+        Display.wait(1000);
     }
 
     private void victory(IPlayer player, IPlayer opponent) {
@@ -152,12 +148,12 @@ public class Game {
     private void randomGameplay() {
         Display.printSingleBoard(board1);
         for (int j = 0; j < 2; j++) {
-            for (int i = 4; i > 1; i--) {
+            for (int i = 5; i > 1; i--) {
                 if (j == 0) {
-                    bf.randomPlacement((Player) player, ShipType.values()[i]); //TODO: check if right
+                    bf.randomPlacement((Player) player, ShipType.values()[i - 1]);
                     Display.printSingleBoard(board1);
                 } else {
-                    bf.randomPlacement(opponent, ShipType.values()[i]);
+                    bf.randomPlacement(opponent, ShipType.values()[i - 1]);
                 }
             }
         }
@@ -166,12 +162,12 @@ public class Game {
     private void randomVsAiGameplay() {
         Display.printSingleBoard(board1);
         for (int j = 0; j < 2; j++) {
-            for (int i = 4; i > 1; i--) {
+            for (int i = 5; i > 1; i--) {
                 if (j == 0) {
-                    bf.randomPlacement(player, ShipType.values()[i]);
+                    bf.randomPlacement(player, ShipType.values()[i - 1]);
                     Display.printSingleBoard(board1);
                 } else {
-                    bf.randomPlacement(ai, ShipType.values()[i]);
+                    bf.randomPlacement(ai, ShipType.values()[i - 1]);
                 }
             }
         }
@@ -179,29 +175,26 @@ public class Game {
 
     private void manualGameplay() {
         var listOfShips = new ShipType[]{
+                ShipType.Carrier,
+                ShipType.Cruiser,
                 ShipType.Battleship,
                 ShipType.Destroyer,
-                ShipType.Carrier
         };
 
         for (int j = 0; j < 2; j++) {
             for (var ship : listOfShips) {
+                Display.clear();
                 if (j == 0) {
-                    Display.clear();
                     Display.printSingleBoard(board1);
                     bf.manualPlacement((Player) player, ship);
                     Display.printSingleBoard(board1);
-                    if (ship.getLength() == 2) {
-                        Display.clear();
-                    }
                 } else {
-                    Display.clear();
                     Display.printSingleBoard(board2);
                     bf.manualPlacement((Player) opponent, ship);
                     Display.printSingleBoard(board2);
-                    if (ship.getLength() == 2) {
-                        Display.clear();
-                    }
+                }
+                if (ship.getLength() == 2) {
+                    Display.clear();
                 }
             }
         }
@@ -209,12 +202,12 @@ public class Game {
 
     private void AivsAiPlacement() {
         for (int j = 0; j < 2; j++) {
-            for (int i = 4; i > 1; i--) {
+            for (int i = 5; i > 1; i--) {
                 if (j == 0) {
                     Display.clear();
-                    bf.randomPlacement(ai, ShipType.values()[i]);
+                    bf.randomPlacement(ai, ShipType.values()[i - 1]);
                 } else {
-                    bf.randomPlacement(ia, ShipType.values()[i]);
+                    bf.randomPlacement(ia, ShipType.values()[i - 1]);
                     if (i == 2) {
                         Display.clear();
                     }
@@ -252,15 +245,9 @@ public class Game {
             mode = input.getInt("Cheeky, cheeky user... Pick between 1 and 3 ;)\n");
         }
         switch (mode) {
-            case 1:
-                mainGame();
-                break;
-            case 2:
-                playVsAi(2);
-                break;
-            case 3:
-                aiVsAi();
-                break;
+            case 1 -> mainGame();
+            case 2 -> playVsAi(2);
+            case 3 -> aiVsAi();
         }
     }
 }
