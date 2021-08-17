@@ -13,9 +13,10 @@ public class Input {
         display.shout(message);
 
         String text = "";
-        while (text.length() < 1) {
+        do {
             text = sc.nextLine();
         }
+        while (text.length() < 1);
         return text;
     }
 

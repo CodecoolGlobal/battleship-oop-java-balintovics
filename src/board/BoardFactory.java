@@ -17,11 +17,15 @@ public class BoardFactory {
         display.shout(String.format("Time to place your %s (size: %s), %s" , shipType, shipType, player.name));
         String[] directions = {"h", "v"};
         String direction = directions[new Random().nextInt(2)];
-        int[] coordinate = {new Random().nextInt(player.getBoard().getOcean().length), new Random().nextInt(player.getBoard().getOcean().length)};
+        int[] coordinate = getCoordinate(player);
         while (!validPlace(player, shipType.getLength(), coordinate, direction)) {
-            coordinate = new int[]{new Random().nextInt(player.getBoard().getOcean().length), new Random().nextInt(player.getBoard().getOcean().length)};
+            coordinate = getCoordinate(player);
         }
         setPlacement(coordinate, player, direction, shipType);
+    }
+
+    private int[] getCoordinate(IPlayer player) {
+        return new int[]{new Random().nextInt(player.getBoard().getOcean().length), new Random().nextInt(player.getBoard().getOcean().length)};
     }
 
     public void manualPlacement(Player player, ShipType shipType) {
